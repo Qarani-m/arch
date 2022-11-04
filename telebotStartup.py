@@ -1,0 +1,20 @@
+from pynput.keyboard import Controller, Key
+import time
+keyboard = Controller()
+with keyboard.pressed(Key.cmd_l):
+    keyboard.press("r")
+time.sleep(0.5)
+keyboard.press(Key.enter)
+keyboard.release(Key.enter)
+time.sleep(0.5)
+keyboard.type("cd C:\\Users\\STUDENTS\\3D Objects\src\\new")
+keyboard.press(Key.enter)
+keyboard.release(Key.enter)
+time.sleep(0.5)
+keyboard.type("pythonw bot.py")
+keyboard.press(Key.enter)
+keyboard.release(Key.enter)
+time.sleep(0.5)
+keyboard.type("exit")
+keyboard.press(Key.enter)
+keyboard.release(Key.enter)
